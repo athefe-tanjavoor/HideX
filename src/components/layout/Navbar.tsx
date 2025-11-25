@@ -13,7 +13,9 @@ const navLinks = [
   { name: "Home", href: "/" },
   { name: "Shop", href: "/shop" },
   { name: "Collections", href: "/collections" },
+  { name: "Corporate Gifting", href: "/corporate-gifting" },
   { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
 ];
 
 export function Navbar() {

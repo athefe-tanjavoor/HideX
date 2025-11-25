@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
+
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { CartProvider } from "@/components/providers/CartProvider";
 import { AnimatedBackground } from "@/components/layout/AnimatedBackground";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +41,9 @@ export default function RootLayout({
         >
           <CartProvider>
             <AnimatedBackground />
+            <Navbar />
             {children}
+            <Footer />
           </CartProvider>
         </ThemeProvider>
       </body>

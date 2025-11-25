@@ -1,7 +1,5 @@
 "use client";
 
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
@@ -94,103 +92,107 @@ export default function ShopPage() {
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-background text-foreground">
-        <Navbar />
-        <div className="pt-32 pb-12 bg-stone-100 dark:bg-stone-900">
-          <div className="container mx-auto px-4 text-center">
+      <div className="relative min-h-screen pt-40 pb-16">
+        <Section>
+          <div className="max-w-4xl mx-auto text-center mb-16">
             <div className="h-12 w-64 bg-stone-200 dark:bg-stone-800 rounded animate-pulse mx-auto mb-4" />
             <div className="h-6 w-96 bg-stone-200 dark:bg-stone-800 rounded animate-pulse mx-auto" />
           </div>
-        </div>
-        <Section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-24">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="aspect-[4/5] bg-stone-200 dark:bg-stone-800 rounded-lg animate-pulse" />
-              ))}
-            </div>
+        </Section>
+        <Section>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="aspect-[4/5] bg-stone-200 dark:bg-stone-800 rounded-lg animate-pulse" />
+            ))}
           </div>
         </Section>
-        <Footer />
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      <Navbar />
-      
-      <div className="pt-32 pb-12 bg-stone-100 dark:bg-stone-900">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-serif font-bold mb-4">Shop Collection</h1>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+    <div className="relative min-h-screen pt-40 pb-16">
+      {/* Hero Section */}
+      <Section>
+        <div className="max-w-4xl mx-auto text-center mb-16">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-4xl md:text-6xl font-serif font-bold mb-6"
+          >
+            Shop Collection
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-lg text-muted-foreground max-w-2xl mx-auto"
+          >
             Explore our range of premium leather goods, designed for longevity and style.
-          </p>
-        </div>
-      </div>
-
-      <Section className="py-12">
-        <div className="container mx-auto px-4">
-          {/* Filters */}
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
-            <div className="flex flex-wrap gap-2 justify-center">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    activeCategory === category
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-            
-            <Button variant="outline" className="flex items-center gap-2">
-              <SlidersHorizontal className="w-4 h-4" />
-              Filters
-            </Button>
-          </div>
-
-          {/* Product Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product, index) => (
-              <Link href={`/product/${product._id}`} key={product._id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05, duration: 0.5 }}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-stone-200 mb-4">
-                    <Image
-                      src={product.images[0]}
-                      alt={product.name}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Button size="sm" className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                        View Details
-                      </Button>
-                    </div>
-                  </div>
-                  <h3 className="font-serif font-medium text-lg text-foreground group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">{product.category}</p>
-                  <p className="text-sm font-medium text-primary mt-1">${product.price}</p>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
+          </motion.p>
         </div>
       </Section>
 
-      <Footer />
-    </main>
+      {/* Products Section */}
+      <Section>
+        {/* Filters */}
+        <div className="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
+          <div className="flex flex-wrap gap-2 justify-center">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                  activeCategory === category
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          
+          <Button variant="outline" className="flex items-center gap-2">
+            <SlidersHorizontal className="w-4 h-4" />
+            Filters
+          </Button>
+        </div>
+
+        {/* Product Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {filteredProducts.map((product, index) => (
+            <Link href={`/product/${product._id}`} key={product._id}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.5 }}
+                className="group cursor-pointer"
+              >
+                <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-stone-200 mb-3">
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <Button size="sm" className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                      View Details
+                    </Button>
+                  </div>
+                </div>
+                <h3 className="font-serif font-medium text-lg text-foreground group-hover:text-primary transition-colors">
+                  {product.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">{product.category}</p>
+                <p className="text-sm font-medium text-primary mt-1">${product.price}</p>
+              </motion.div>
+            </Link>
+          ))}
+        </div>
+      </Section>
+    </div>
   );
 }

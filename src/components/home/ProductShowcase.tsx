@@ -48,7 +48,7 @@ const products: Product[] = [
 
 export function ProductShowcase() {
   return (
-    <Section className="bg-stone-50 dark:bg-stone-950">
+    <Section>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-end mb-12">
           <div>
@@ -72,26 +72,41 @@ export function ProductShowcase() {
               key={product._id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ scale: 1.05, y: -5 }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
               viewport={{ once: true }}
               className="group cursor-pointer"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-stone-200 mb-4">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-stone-200 mb-4 shadow-lg group-hover:shadow-2xl transition-shadow duration-300">
                 <Image
                   src={product.images[0]}
                   alt={product.name}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                  <Button size="sm" className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    Quick View
-                  </Button>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    whileHover={{ y: 0, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Button size="sm" className="shadow-xl">
+                      Quick View
+                    </Button>
+                  </motion.div>
+                </div>
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                  <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-primary/50 via-transparent to-primary/50 blur-sm" />
                 </div>
               </div>
-              <h3 className="font-serif font-medium text-lg text-foreground group-hover:text-primary transition-colors">
+              <motion.h3 
+                className="font-serif font-medium text-lg text-foreground group-hover:text-primary transition-colors"
+                whileHover={{ x: 5 }}
+                transition={{ duration: 0.2 }}
+              >
                 {product.name}
-              </h3>
+              </motion.h3>
               <p className="text-sm text-muted-foreground">{product.category}</p>
               <p className="text-sm font-medium text-primary mt-1">${product.price}</p>
             </motion.div>
