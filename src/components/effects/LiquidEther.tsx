@@ -1,7 +1,7 @@
 // @ts-nocheck
 import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-// import './LiquidEther.css';
+import './LiquidEther.css';
 
 export default function LiquidEther({
   mouseForce = 20,
